@@ -1,0 +1,276 @@
+---
+- name: PRINTER - Remove packages and disable services
+  hosts: all
+  become: yes
+  tags:
+    - printer
+
+  tasks:
+    - name: Remove printer packages
+      apt:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - '*cups*'
+        - '*printer*'
+
+    - name: Disable printer service
+      service:
+        name: cups
+        state: stopped
+        enabled: no
+      ignore_errors: yes
+
+
+
+- name: WIFI - Remove packages and disable services
+  hosts: all
+  become: yes
+  tags:
+    - wifi
+
+  tasks:
+    - name: Remove wifi packages
+      apt:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - 'network-manager*'
+        - wireless-tools
+        - wpasupplicant
+
+    - name: Disable wifi service
+      service:
+        name: NetworkManager
+        state: stopped
+        enabled: no
+      ignore_errors: yes
+
+
+- name: BLUETOOTH - Remove packages and disable services
+  hosts: all
+  become: yes
+  tags:
+    - bluetooth
+
+  tasks:
+    - name: Remove bluetooth packages
+      apt:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - blueman
+        - '*bluez*'
+        - '*bluetooth*'
+
+    - name: Disable bluetooth service
+      service:
+        name: bluetooth
+        state: stopped
+        enabled: no
+      ignore_errors: yes
+
+
+- name: DESKTOP - Remove packages and disable services
+  hosts: all
+  become: yes
+  tags:
+    - desktop
+
+  tasks:
+    - name: Remove desktop-environment packages
+      apt:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - '*gnome*'
+        - '*gtk*'
+        - '*x11*'
+        - '*xfce*'
+        - '*xorg*'
+        - lightdm
+        - lxde-core
+        - lxsession
+        - lxterminal
+        - openbox
+        - pi-greeter
+        - raspberrypi-net-mods
+        - raspberrypi-ui-mods
+        - xfdesktop4
+        - xfwm4
+        - xinit
+        - xserver-common
+
+    - name: Disable desktop-environment service
+      service:
+        name: "{{ item }}"
+        state: stopped
+        enabled: no
+      with_items:
+        - lightdm
+        - sddm
+      ignore_errors: yes
+
+    - name: Remove desktop applications
+      apt:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - '*desktop*'
+        - '*vlc*'
+        - '*lxde*'
+        - '*gimp*'
+        - aisleriot
+        - asunder
+        - atom
+        - audacious
+        - audacity
+        - audex
+        - banshee
+        - brasero
+        - cheese
+        - chromium-browser
+        - clementine
+        - deadbeef
+        - evince
+        - filezilla
+        - firefox-esr
+        - geany
+        - gedit
+        - gedit-latex-plugin
+        - gedit-plugins
+        - gftp
+        - handbrake
+        - hexchat
+        - inkscape
+        - k3b
+        - kdenlive
+        - krita
+        - libdvd-pkg
+        - libreoffice
+        - openshot
+        - pidgin
+        - plank
+        - qbittorrent
+        - rhythmbox
+        - rhythmbox-plugins
+        - shotwell
+        - sublime-text
+        - thunderbird
+
+
+- name: EMAIL - Remove packages and disable services
+  hosts: all
+  become: yes
+  tags:
+    - email
+
+  tasks:
+    - name: Remove email packages
+      apt:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - sendmail
+        - postfix
+        - exim4
+        - dovecot-core
+        - dovecot-imapd
+        - dovecot-pop3d
+
+    - name: Disable email services
+      service:
+        name: "{{ item }}"
+        state: stopped
+        enabled: no
+      with_items:
+        - sendmail
+        - postfix
+        - exim4
+        - dovecot-core
+      ignore_errors: yes
+
+
+- name: SOUND - Remove packages and disable services
+  hosts: all
+  become: yes
+  tags:
+    - sound
+
+  tasks:
+    - name: Remove sound packages
+      apt:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - '*sound*'
+        - '*pipewire*'
+        - '*pulseaudio*'
+        - '*alsa*'
+
+    - name: Disable sound service
+      service:
+        name: pulseaudio
+        state: stopped
+        enabled: no
+      ignore_errors: yes
+
+
+- name: WEBCAM - Remove packages and disable services
+  hosts: all
+  become: yes
+  tags:
+    - webcam
+
+  tasks:
+    - name: Remove webcam packages
+      apt:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - guvcview
+        - cheese
+
+    - name: Disable webcam service
+      service:
+        name: guvcview
+        state: stopped
+        enabled: no
+      ignore_errors: yes
+
+
+- name: GAMES - Remove packages and disable services
+  hosts: all
+  become: yes
+  tags:
+    - games
+
+  tasks:
+    - name: Remove game packages
+      apt:
+        name: "{{ item }}"
+        state: absent
+      with_items:
+        - supertuxkart
+        - aisleriot
+
+    - name: Disable game service
+      service:
+        name: aisleriot
+        state: stopped
+        enabled: no
+      ignore_errors: yes
+
+
+- name: Cleanup - Remove unused packages
+  hosts: all
+  become: yes
+  tags:
+    - auto
+
+  tasks:
+    - name: Autoclean and autoremove
+      apt:
+        autoclean: yes
+        autoremove: yes
+
