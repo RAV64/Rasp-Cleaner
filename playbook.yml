@@ -136,9 +136,6 @@
         - filezilla
         - firefox-esr
         - geany
-        - gedit
-        - gedit-latex-plugin
-        - gedit-plugins
         - gftp
         - handbrake
         - hexchat
@@ -171,12 +168,10 @@
         name: "{{ item }}"
         state: absent
       with_items:
+        - '*dovecot*'
         - sendmail
         - postfix
         - exim4
-        - dovecot-core
-        - dovecot-imapd
-        - dovecot-pop3d
 
     - name: Disable email services
       service:
@@ -273,4 +268,26 @@
       apt:
         autoclean: yes
         autoremove: yes
+
+- name: Modify systemd-journald configuration
+  hosts: all
+  become: yes
+  tags:
+    - journald
+
+  tasks:
+    - name: Set SystemMaxUse in journald.conf
+      lineinfile:
+        path: /etc/systemd/journald.conf
+        regex: '^#?SystemMaxUse='
+        line: 'SystemMaxUse=30M'
+        backrefs: yes
+      notify:
+        - Restart systemd-journald
+
+  handlers:
+    - name: Restart systemd-journald
+      service:
+        name: systemd-journald
+        state: restarted
 
