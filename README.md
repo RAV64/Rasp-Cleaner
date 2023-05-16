@@ -49,11 +49,25 @@ Playbook is a work in progress alpha product and will propably break something w
 
 Running this playbook leaves the "victim" machine in quite nice state if one does not need the services we're removing here.
 Running `ps aux --sort=-%mem | head -30` to list top 30 most memory consuming processes gives a list that needs no actual cleaning.
-Next steps would be to disable [pi-hole](https://pi-hole.net/) web interface and switch from [tailscale](https://tailscale.com/) to bare [wireguard](https://www.wireguard.com/).
+Next steps would be to disable [Pi-hole](https://pi-hole.net/) web interface and switch from [Tailscale](https://tailscale.com/) to bare [Wireguard](https://www.wireguard.com/).
  
 <img width="1409" alt="image" src="https://github.com/RAV64/Rasp-Cleaner/assets/73443709/72a6ee2c-5d13-409d-8550-ea4602c9a925">
 
-- `systemd-journal` using the most memory seems quite strange
+### `systemd-journal` using the most memory seems quite strange.
+
+After tracking down what might be the cause of this I found out tailscale is flooding my journalctl. I utilized this chatGPT generated command to demonstrate it:
+
+`journalctl | awk 'BEGIN{count=0} {if($0 ~ /tailscale/) count++} END{print "Total Lines: " NR; printf "Matched Lines: %d\n", count; printf "Percentage: %.2f%%\n", (count/NR)*100}'`
+
+This was the output:
+
+```
+Total Lines: 59777
+Matched Lines: 35931
+Percentage: 60.11%
+```
+
+Options to fix this are changing to Wireguard or changing logging rules for Tailscale
 
 ## Sources
 
