@@ -69,6 +69,11 @@ Percentage: 60.11%
 
 Options to fix this are changing to Wireguard or changing logging rules for Tailscale. [Here](https://github.com/tailscale/tailscale/issues/1548#issuecomment-1031152941) is a "fix" to disable Tailscale flooding journal logs.
 
+This didn't solve the memory usage issue. 
+
+Modifying `/etc/systemd/journald.conf` by adding `SystemMaxUse=50M` line after `[journal]` I have now succesfully got it off the top of my memory consumption list.
+This has its own flaws but fits my use case. Also this new smaller size doesn't get flooded by Tailscale anymore so it should be enough.
+
 ## Sources
 
 This was built for my own use and as an course exercise for [course](https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/)
