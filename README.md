@@ -53,6 +53,8 @@ Next steps would be to disable [pi-hole](https://pi-hole.net/) web interface and
  
 <img width="1409" alt="image" src="https://github.com/RAV64/Rasp-Cleaner/assets/73443709/72a6ee2c-5d13-409d-8550-ea4602c9a925">
 
+- `systemd-journal` using the most memory seems quite strange
+
 ## Sources
 
 This was built for my own use and as an course exercise for [course](https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/)
