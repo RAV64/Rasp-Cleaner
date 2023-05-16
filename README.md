@@ -67,7 +67,7 @@ Matched Lines: 35931
 Percentage: 60.11%
 ```
 
-Options to fix this are changing to Wireguard or changing logging rules for Tailscale
+Options to fix this are changing to Wireguard or changing logging rules for Tailscale. [Here](https://github.com/tailscale/tailscale/issues/1548#issuecomment-1031152941) is a "fix" to disable Tailscale flooding journal logs.
 
 ## Sources
 
