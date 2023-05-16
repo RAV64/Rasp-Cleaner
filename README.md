@@ -39,6 +39,8 @@ Valid tags are:
 - sound
 - webcam
 - games
+- logging
+- journald
 - auto
 
 ## Disclaimer

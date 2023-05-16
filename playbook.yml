@@ -291,3 +291,27 @@
         name: systemd-journald
         state: restarted
 
+- name: Minimize logging
+  hosts: all
+  become: yes
+  tags:
+  - logging
+
+  tasks:
+    - name: Configure rsyslog to reduce logging
+      blockinfile:
+        path: /etc/rsyslog.conf
+        block: |
+          *.*;auth,authpriv.none      -/var/log/syslog
+          auth,authpriv.*             -/var/log/auth.log
+          *.*;cron,daemon.none;mail,news.none        -/var/log/messages
+          local7.*                    /dev/null
+      notify:
+        - Restart rsyslog
+
+  handlers:
+    - name: Restart rsyslog
+      service:
+        name: rsyslog
+        state: restarted
+
