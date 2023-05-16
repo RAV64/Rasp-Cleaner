@@ -43,7 +43,15 @@ Valid tags are:
 
 ## Disclaimer
 
-Playbook is a work in progress alpha product and will propably break something when ran except in certain usecases
+Playbook is a work in progress alpha product and will propably break something when ran except in certain use cases
+
+## After thoughts 
+
+Running this playbook leaves the "victim" machine in quite nice state if one does not need the services we're removing here.
+Running `ps aux --sort=-%mem | head -30` to list top 30 most memory consuming processes gives a list that needs no actual cleaning.
+Next steps would be to disable [pi-hole](https://pi-hole.net/) web interface and switch from [tailscale](https://tailscale.com/) to bare [wireguard](https://www.wireguard.com/).
+ 
+<img width="1409" alt="image" src="https://github.com/RAV64/Rasp-Cleaner/assets/73443709/72a6ee2c-5d13-409d-8550-ea4602c9a925">
 
 ## Sources
 
