@@ -81,3 +81,5 @@ This change is now automatically implemented in [this commit](https://github.com
 ## Sources
 
 This was built for my own use and as an course exercise for [course](https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/)
+
+- [chatGPT](https://chat.openai.com/)
