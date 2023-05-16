@@ -74,6 +74,8 @@ This didn't solve the memory usage issue.
 Modifying `/etc/systemd/journald.conf` by adding `SystemMaxUse=50M` line after `[journal]` I have now succesfully got it off the top of my memory consumption list.
 This has its own flaws but fits my use case. Also this new smaller size doesn't get flooded by Tailscale anymore so it should be enough.
 
+This change is now automatically implemented in [this commit](https://github.com/RAV64/Rasp-Cleaner/commit/b4ef0675dbc65dbdf5564715d5a6649363e5d5fc)
+
 ## Sources
 
 This was built for my own use and as an course exercise for [course](https://terokarvinen.com/2023/palvelinten-hallinta-2023-kevat/)
